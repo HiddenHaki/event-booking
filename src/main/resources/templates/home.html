@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Event Ticketing System</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Available Events</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Venue</th>
+                <th>Date</th>
+                <th>Available Tickets</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="event : ${events}">
+                <td th:text="${event.title}">Event Title</td>
+                <td th:text="${event.venue}">Event Venue</td>
+                <td th:text="${event.date}">Event Date</td>
+                <td th:text="${event.availableTickets}">0</td>
+                <td>
+                    <button>Book Now</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

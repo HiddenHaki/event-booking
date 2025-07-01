@@ -1,0 +1,38 @@
+# === Java / Maven ===
+*.class
+*.jar
+*.war
+*.ear
+/target/
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+log/
+logs/
+*.log
+hs_err_pid*
+
+# === Spring Boot ===
+application.properties
+application.yml
+
+# === IDEs ===
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+
+# === System Files ===
+.DS_Store
+Thumbs.db
+
+# === Build / Cache ===
+build/
+*.tmp
+*.bak
+
+# === Misc ===
+HELP.md
