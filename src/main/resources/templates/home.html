@@ -63,7 +63,9 @@
                 <td th:text="${event.date}">Event Date</td>
                 <td th:text="${event.availableTickets}">0</td>
                 <td>
-                    <button>Book Now</button>
+                    <a th:href="@{'/booking/' + ${event.id}}">
+                        <button>Book Now</button>
+                    </a>
                 </td>
             </tr>
         </tbody>
