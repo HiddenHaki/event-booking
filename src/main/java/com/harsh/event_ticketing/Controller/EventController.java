@@ -9,6 +9,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class EventController {
@@ -44,6 +46,19 @@ public class EventController {
             e.printStackTrace();
             return "error";
         }
+    }
+
+    @GetMapping("/admin/events/new")
+    public String showAddEventForm(Model model) {
+        model.addAttribute("event", new Event());
+        return "add-event";
+    }
+
+    @PostMapping("/admin/events/save")
+    public String saveEvent(@ModelAttribute Event event) {
+        event.setAvailableTickets(event.getTotalTickets());
+        eventRepository.save(event);
+        return "redirect:/";
     }
 
 }
