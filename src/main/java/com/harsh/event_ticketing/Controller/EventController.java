@@ -3,13 +3,13 @@ package com.harsh.event_ticketing.Controller;
 import com.harsh.event_ticketing.Models.Event;
 import com.harsh.event_ticketing.Repository.EventRepository;
 import org.springframework.ui.Model;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -19,33 +19,11 @@ public class EventController {
 
     @GetMapping("/")
     public String home(Model model) {
-        try {
-            if (eventRepository.count() == 0) {
-                Event e1 = new Event();
-                e1.setTitle("Spring boot workshop");
-                e1.setVenue("Online");
-                e1.setDate(LocalDate.of(2025, 7, 1));
-                e1.setTotalTickets(100);
-                e1.setAvailableTickets(100);
+        List<Event> events = eventRepository.findAll();
 
-                Event e2 = new Event();
-                e2.setTitle("DefCon");
-                e2.setVenue("Mumbai");
-                e2.setDate(LocalDate.of(2025, 8, 2));
-                e2.setTotalTickets(200);
-                e2.setAvailableTickets(200);
+        model.addAttribute("events", events);
 
-                eventRepository.saveAll(List.of(e1, e2));
-            }
-
-            List<Event> events = eventRepository.findAll();
-            model.addAttribute("events", events);
-
-            return "home";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error";
-        }
+        return "home";
     }
 
     @GetMapping("/admin/events/new")
@@ -55,10 +33,53 @@ public class EventController {
     }
 
     @PostMapping("/admin/events/save")
-    public String saveEvent(@ModelAttribute Event event) {
+    public String saveOrUpdateEvent(@ModelAttribute Event event) {
+
+        if (event.getId() != null) {
+            Event existing = eventRepository.findById(event.getId()).orElse(null);
+            if (existing != null) {
+                int booked = existing.getTotalTickets() - existing.getAvailableTickets();
+                existing.setTitle(event.getTitle());
+                existing.setVenue(event.getVenue());
+                existing.setDate(event.getDate());
+                existing.setTotalTickets(event.getTotalTickets());
+
+                existing.setAvailableTickets(Math.max(0, event.getTotalTickets() - booked));
+                eventRepository.save(existing);
+                return "redirect:/admin/events";
+            }
+        }
+
         event.setAvailableTickets(event.getTotalTickets());
         eventRepository.save(event);
-        return "redirect:/";
+        return "redirect:/admin/events";
+    }
+
+    @GetMapping("admin/events/delete/{id}")
+    public String deleteEvent(@PathVariable Long id) {
+        eventRepository.deleteById(id);
+
+        return "redirect:/admin/events";
+    }
+
+    @GetMapping("admin/events")
+    public String showAllEventsForAdmin(Model model) {
+        model.addAttribute("events", eventRepository.findAll());
+        return "admin-events";
+    }
+
+    @GetMapping("admin/events/edit/{id}")
+    public String editEvent(@PathVariable Long id, Model model) {
+        Event event = eventRepository.findById(id).orElse(null);
+
+        if (event == null) {
+            model.addAttribute("error", event);
+            return "error";
+        }
+
+        model.addAttribute("event", event);
+        return "add-event";
+
     }
 
 }
