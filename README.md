@@ -8,8 +8,8 @@ A simple Event Ticket Booking System built with **Spring Boot** to manage events
 
 - 📝 List of upcoming events
 - 📍 Event details: title, venue, date, available tickets
-- 📥 Admin-side event creation (coming soon)
-- 🎫 Ticket booking functionality (coming soon)
+- 📥 Admin-side event creation
+- 🎫 Ticket booking functionality
 - 💡 Built with Spring Boot, Thymeleaf, and H2
 
 ---
