@@ -29,6 +29,7 @@ public class EventController {
     @GetMapping("/admin/events/new")
     public String showAddEventForm(Model model) {
         model.addAttribute("event", new Event());
+        model.addAttribute("mode", "add");
         return "add-event";
     }
 
@@ -76,10 +77,15 @@ public class EventController {
             model.addAttribute("error", event);
             return "error";
         }
-
         model.addAttribute("event", event);
+        model.addAttribute("mode", "edit");
         return "add-event";
 
+    }
+    
+    @GetMapping("/admin")
+    public String adminDashboard() {
+        return "admin-dashboard";
     }
 
 }

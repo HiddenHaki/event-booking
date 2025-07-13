@@ -1,5 +1,7 @@
 package com.harsh.event_ticketing.Controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,6 +55,7 @@ public class BookingController {
 
         // Reduce available tickets
         event.setAvailableTickets(event.getAvailableTickets() - booking.getNumberOfTickets());
+        booking.setBookingTime(LocalDateTime.now());
 
         // now save the updated booking and event
         bookingRepository.save(booking);
