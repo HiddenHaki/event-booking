@@ -1,35 +1,33 @@
-# 🎟️ Event Ticketing System
+# 🎟️ EventEase - Event Ticketing System
 
-A simple Event Ticket Booking System built with **Spring Boot** to manage events, display available tickets, and (coming soon) allow users to book tickets.
-
----
-
-## 📌 Features
-
-- 📝 List of upcoming events
-- 📍 Event details: title, venue, date, available tickets
-- 📥 Admin-side event creation
-- 🎫 Ticket booking functionality
-- 💡 Built with Spring Boot, Thymeleaf, and H2
+A simple Spring Boot-based web application for managing and booking tickets for events. Built with a focus on real-world features like event listings, admin panel, booking form, and ticket generation.
 
 ---
 
-## 🛠 Tech Stack
+## 🚀 Features
 
-- **Backend**: Java 23, Spring Boot
-- **Template Engine**: Thymeleaf
-- **Database**: H2 (in-memory)
-- **Build Tool**: Maven
-- **IDE**: VS Code
+- 🏠 Homepage with list of upcoming events
+- ✅ Booking form with name, email, and ticket count
+- 📄 Booking confirmation page with downloadable ticket
+- 🛠️ Admin panel to:
+  - Add new events
+  - Edit existing events
+  - View all bookings
+- 🧠 H2 Database for storage
+- 🎨 Simple, clean UI with Thymeleaf
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Tech Stack
 
-### Prerequisites
 - Java 17+
-- Maven
-- VS Code or any Java IDE
+- Spring Boot 3.x
+- Spring MVC, Spring Data JPA
+- Thymeleaf
+- H2 Database
+- Lombok
+
+---
 
 ### Clone the repo
 ```bash
