@@ -1,5 +1,6 @@
 package com.harsh.event_ticketing.Controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class BookingController {
 
         if (event == null || event.getAvailableTickets() <= 0) {
             model.addAttribute("error", "Sold Out / Event not found");
+        }
+
+        if(event.getDate().isBefore(LocalDate.now())){
+            model.addAttribute("error", "Booking is closed for this event");
+            return "error";
         }
 
         Booking booking = new Booking();
